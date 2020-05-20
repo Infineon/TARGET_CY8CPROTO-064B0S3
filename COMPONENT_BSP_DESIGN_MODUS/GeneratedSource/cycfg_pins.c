@@ -122,30 +122,6 @@ const cy_stc_gpio_pin_config_t CYBSP_ECO_OUT_config =
 		.channel_num = CYBSP_ECO_OUT_PIN,
 	};
 #endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t CYBSP_SWO_config =
-{
-	.outVal = 1,
-	.driveMode = CY_GPIO_DM_STRONG_IN_OFF,
-	.hsiom = CYBSP_SWO_HSIOM,
-	.intEdge = CY_GPIO_INTR_DISABLE,
-	.intMask = 0UL,
-	.vtrip = CY_GPIO_VTRIP_CMOS,
-	.slewRate = CY_GPIO_SLEW_FAST,
-	.driveSel = CY_GPIO_DRIVE_1_2,
-	.vregEn = 0UL,
-	.ibufMode = 0UL,
-	.vtripSel = 0UL,
-	.vrefSel = 0UL,
-	.vohSel = 0UL,
-};
-#if defined (CY_USING_HAL)
-	const cyhal_resource_inst_t CYBSP_SWO_obj =
-	{
-		.type = CYHAL_RSC_GPIO,
-		.block_num = CYBSP_SWO_PORT_NUM,
-		.channel_num = CYBSP_SWO_PIN,
-	};
-#endif //defined (CY_USING_HAL)
 const cy_stc_gpio_pin_config_t CYBSP_SWDIO_config =
 {
 	.outVal = 1,
@@ -216,11 +192,6 @@ void init_cycfg_pins(void)
 	Cy_GPIO_Pin_Init(CYBSP_ECO_OUT_PORT, CYBSP_ECO_OUT_PIN, &CYBSP_ECO_OUT_config);
 #if defined (CY_USING_HAL)
 	cyhal_hwmgr_reserve(&CYBSP_ECO_OUT_obj);
-#endif //defined (CY_USING_HAL)
-
-	Cy_GPIO_Pin_Init(CYBSP_SWO_PORT, CYBSP_SWO_PIN, &CYBSP_SWO_config);
-#if defined (CY_USING_HAL)
-	cyhal_hwmgr_reserve(&CYBSP_SWO_obj);
 #endif //defined (CY_USING_HAL)
 
 	Cy_GPIO_Pin_Init(CYBSP_SWDIO_PORT, CYBSP_SWDIO_PIN, &CYBSP_SWDIO_config);

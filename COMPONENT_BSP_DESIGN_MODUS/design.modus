@@ -64,16 +64,6 @@
                 </Block>
                 <Block location="ioss[0].port[6].pin[4]">
                     <Alias value="CYBSP_SWO"/>
-                    <Personality template="mxs40pin" version="1.1">
-                        <Param id="DriveModes" value="CY_GPIO_DM_STRONG_IN_OFF"/>
-                        <Param id="initialState" value="1"/>
-                        <Param id="vtrip" value="CY_GPIO_VTRIP_CMOS"/>
-                        <Param id="isrTrigger" value="CY_GPIO_INTR_DISABLE"/>
-                        <Param id="slewRate" value="CY_GPIO_SLEW_FAST"/>
-                        <Param id="driveStrength" value="CY_GPIO_DRIVE_1_2"/>
-                        <Param id="sioOutputBuffer" value="true"/>
-                        <Param id="inFlash" value="true"/>
-                    </Personality>
                 </Block>
                 <Block location="ioss[0].port[6].pin[6]">
                     <Alias value="CYBSP_SWDIO"/>
@@ -232,10 +222,6 @@
                 <Net>
                     <Port name="cpuss[0].dap[0].swj_swdio_tms[0]"/>
                     <Port name="ioss[0].port[6].pin[6].digital_inout[0]"/>
-                </Net>
-                <Net>
-                    <Port name="cpuss[0].dap[0].swj_swo_tdo[0]"/>
-                    <Port name="ioss[0].port[6].pin[4].digital_out[0]"/>
                 </Net>
                 <Net>
                     <Port name="ioss[0].port[0].pin[0].analog[0]"/>
