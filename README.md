@@ -2,7 +2,8 @@
 
 ## Overview
 
-NOTE: THIS IS A EARLY ACCESS TARGET AND REQUIRES CUSTOM TOOLING FROM CYPRESS TO BUILD. <p>CY8CPROTO-064B0S3 PSoC 64 SecureBoot Prototyping Kit is a low-cost Prototyping Kit based on PSoC 64 SecureBoot MCU to enable customers to prototype and design with the PSoC 64 SecureBoot device.
+CY8CPROTO-064B0S3 PSoC 64 SecureBoot Prototyping Kit is a low-cost Prototyping Kit based on PSoC 64 SecureBoot MCU to enable customers to prototype and design with the PSoC 64 SecureBoot device.
+
 ![](docs/html/board.png)
 
 To use code from the BSP, simply include a reference to `cybsp.h`.
@@ -27,17 +28,19 @@ The BSP has a few hooks that allow its behavior to be configured. Some of these 
 
 Components:
     * Device specific HAL reference (e.g.: PSOC6HAL) - This component, enabled by default, pulls in the version of the HAL that is applicable for this board.
-    * CYBSP_WIFI_CAPABLE - This component, disabled by default, causes the BSP to initialize the interface to an onboard wireless chip.
     * BSP_DESIGN_MODUS - This component, enabled by default, causes the Configurator generated code for this specific BSP to be included. This should not be used at the same time as the CUSTOM_DESIGN_MODUS component.
     * CUSTOM_DESIGN_MODUS - This component, disabled by default, causes the Configurator generated code from the application to be included. This assumes that the application provides configurator generated code. This should not be used at the same time as the BSP_DESIGN_MODUS component.
 
 Defines:
+    * CYBSP_WIFI_CAPABLE - This define, disabled by default, causes the BSP to initialize the interface to an onboard wireless chip.
     * CY_USING_HAL - This define, enabled by default, specifies that the HAL is intended to be used by the application. This will cause the BSP to include the applicable header file and to initialize the system level drivers.
 
 ### Clock Configuration
 
 | Clock    | Source    | Output Frequency |
 |----------|-----------|------------------|
+| FLL      | IMO       | 100.0 MHz        |
+| PLL      | IMO       | 48.0 MHz         |
 | CLK_HF0  | CLK_PATH0 | 100 MHz          |
 | CLK_HF2  | CLK_PATH0 | 50 MHz           |
 | CLK_HF3  | CLK_PATH1 | 48 MHz           |
@@ -58,7 +61,7 @@ See the [BSP API Reference Manual][api] for the complete list of the provided in
 ## More information
 * [CY8CPROTO-064B0S3 BSP API Reference Manual][api]
 * [CY8CPROTO-064B0S3 Documentation](http://www.cypress.com/CY8CPROTO-064B0S3)
-* [Cypress Semiconductor](http://www.cypress.com)
+* [Cypress Semiconductor, an Infineon Technologies Company](http://www.cypress.com)
 * [Cypress Semiconductor GitHub](https://github.com/cypresssemiconductorco)
 * [ModusToolbox](https://www.cypress.com/products/modustoolbox-software-environment)
 

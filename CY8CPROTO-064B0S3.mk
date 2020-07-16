@@ -31,20 +31,25 @@ DEVICE:=CYB06445LQI-S3D42
 # Default target core to CM4 if not already set
 CORE?=CM4
 # Define default type of bootloading method [single, dual]
-# single -> CM4 only, dual -> CM0 and CM4
-SECURE_CORE_MODE?=single
+# single -> CM4 only, multi -> CM0 and CM4
+SECURE_BOOT_STAGE?=single
 
 ifeq ($(CORE),CM4)
 # Additional components supported by the target
-COMPONENTS+=BSP_DESIGN_MODUS PSOC6HAL
+COMPONENTS+=BSP_DESIGN_MODUS PSOC6HAL 4343W
+#Add secure CM0P image in single stage
+ifeq ($(SECURE_BOOT_STAGE), single)
+COMPONENTS+=CM0P_SECURE
+endif
+
 # Use CyHAL
 DEFINES+=CY_USING_HAL
 
-ifeq ($(SECURE_CORE_MODE),single)
-CY_LINKERSCRIPT_SUFFIX=cm4
-CY_SECURE_POLICY_NAME=policy_single_stage_CM4
-else
+ifeq ($(SECURE_BOOT_STAGE),single)
 CY_LINKERSCRIPT_SUFFIX=cm4_dual
+CY_SECURE_POLICY_NAME=policy_single_CM0_CM4
+else
+CY_LINKERSCRIPT_SUFFIX=cm4
 CY_SECURE_POLICY_NAME=policy_multi_CM0_CM4
 endif
 
@@ -60,21 +65,32 @@ CY_PYTHON_PATH?=python3
 endif
 
 # BSP-specific post-build action
-# CySecureTools Image ID for CM4 Applications is 16 in case of multi-stage, 4 for single-stage, 
-# Image ID for CM0 Applications is always 1 
+# CySecureTools Image ID for CM4 Applications is 16 in case of multi-stage, 1 for single-stage,
+# Image ID for CM0 Applications is always 1
 ifeq ($(CORE), CM4)
-ifeq ($(SECURE_CORE_MODE), single)
-CY_BSP_POSTBUILD=$(CY_PYTHON_PATH) -c "import cysecuretools; \
-	tools = cysecuretools.CySecureTools('cyb06445lqi-s3d42', 'policy/$(CY_SECURE_POLICY_NAME).json'); \
-	tools.sign_image('$(CY_CONFIG_DIR)/$(APPNAME).hex',4);"
+ifeq ($(SECURE_BOOT_STAGE), single)
+CY_BSP_POSTBUILD=cysecuretools --target cyb06xx5 --policy ./policy/$(CY_SECURE_POLICY_NAME).json sign-image --hex $(CY_CONFIG_DIR)/$(APPNAME).hex --image-id 1
 else
+# In the multi-stage case, by default,
+# 1) The CM0P Secure hex file is copied from the psoc6cm0p asset into the build folder
+# 2) The CM0P hex file is signed according to the policy
+# 3) The CM4 hex file is signed according to the policy
+# 4) The CM0P and CM4 hex files are merged into a single hex file
+
 CY_BSP_POSTBUILD=$(CY_PYTHON_PATH) -c "import cysecuretools; \
-	tools = cysecuretools.CySecureTools('cyb06445lqi-s3d42', 'policy/$(CY_SECURE_POLICY_NAME).json'); \
-	tools.sign_image('$(CY_CONFIG_DIR)/$(APPNAME).hex',16);"
-endif	
+	from intelhex import IntelHex;  import shutil; \
+	tools = cysecuretools.CySecureTools('cyb06xx5', 'policy/$(CY_SECURE_POLICY_NAME).json'); \
+	tools.sign_image('$(CY_CONFIG_DIR)/$(APPNAME).hex',16); \
+	shutil.copy2('./libs/psoc6cm0p/COMPONENT_CM0P_SECURE/psoc6_03_cm0p_secure.hex', \
+	'$(CY_CONFIG_DIR)/psoc6_03_cm0p_secure.hex'); \
+	tools.sign_image('$(CY_CONFIG_DIR)/psoc6_03_cm0p_secure.hex',1); \
+	ihex = IntelHex(); \
+	ihex.padding = 0x00; \
+    ihex.loadfile('$(CY_CONFIG_DIR)/$(APPNAME).hex', 'hex'); \
+    ihex.merge(IntelHex('$(CY_CONFIG_DIR)/psoc6_03_cm0p_secure.hex'), 'ignore'); \
+    ihex.write_hex_file('$(CY_CONFIG_DIR)/$(APPNAME).hex', write_start_addr=False, byte_count=16);"
+endif
 else
-CY_BSP_POSTBUILD=$(CY_PYTHON_PATH) -c "import cysecuretools; \
-	tools = cysecuretools.CySecureTools('cyb06445lqi-s3d42', 'policy/$(CY_SECURE_POLICY_NAME).json'); \
-	tools.sign_image('$(CY_CONFIG_DIR)/$(APPNAME).hex',1);"
+CY_BSP_POSTBUILD=cysecuretools --target cyb06xx5 --policy ./policy/$(CY_SECURE_POLICY_NAME).json sign-image --hex $(CY_CONFIG_DIR)/$(APPNAME).hex --image-id 1
 endif
 

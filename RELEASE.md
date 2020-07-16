@@ -1,5 +1,5 @@
 # CY8CPROTO-064B0S3 BSP Release Notes
-NOTE: THIS IS A EARLY ACCESS TARGET AND REQUIRES CUSTOM TOOLING FROM CYPRESS TO BUILD. <p>CY8CPROTO-064B0S3 PSoC 64 SecureBoot Prototyping Kit is a low-cost Prototyping Kit based on PSoC 64 SecureBoot MCU to enable customers to prototype and design with the PSoC 64 SecureBoot device.
+CY8CPROTO-064B0S3 PSoC 64 SecureBoot Prototyping Kit is a low-cost Prototyping Kit based on PSoC 64 SecureBoot MCU to enable customers to prototype and design with the PSoC 64 SecureBoot device.
 
 NOTE: BSPs are versioned by family. This means that version 1.2.0 of any BSP in a family (eg: PSoC 6) will have the same software maturity level. However, not all updates are necessarily applicable for each BSP in the family so not all version numbers will exist for each board. Additionally, new BSPs may not start at version 1.0.0. In the event of adding a common feature across all BSPs, the libraries are assigned the same version number. For example if BSP_A is at v1.3.0 and BSP_B is at v1.2.0, the event will trigger a version update to v1.4.0 for both BSP_A and BSP_B. This allows the common feature to be tracked in a consistent way.
 
@@ -15,14 +15,20 @@ The CY8CPROTO-064B0S3 library includes the following:
 * API documentation
 
 ### What Changed?
+#### v1.3.0
+* Minor update for documentation & branding
+* Updated design files to use latest personality files
+* Initialize VDDA voltage if set in configurator
+NOTE: This requires psoc6hal 1.3.0 or later
 #### v1.2.1
-* Add 43012/4343W/43438 component to appropriate BSPs
+* Added 43012/4343W/43438 component to appropriate BSPs
 * Added multi-image policy for secure (064) BSPs
 #### v1.2.0
 * Standardize version numbering for all boards in a family
 * Moved UDB SDIO implementation into its own library udb-sdio-whd library
 * Added call to setup HAL SysPM driver (requires HAL 1.2.0 or later)
 * Updated documentation
+NOTE: This requires psoc6hal 1.2.0 or later
 #### v1.1.0
 * Updated linker scripts and startup code for the CM0+ and CM4 cores. The files are now in core specific directories.
 * Minor updates to avoid potential warnings on some toolchains
@@ -44,7 +50,7 @@ This version of the CY8CPROTO-064B0S3 BSP was validated for compatibility with t
 ### More information
 * [CY8CPROTO-064B0S3 BSP API Reference Manual][api]
 * [CY8CPROTO-064B0S3 Documentation](http://www.cypress.com/CY8CPROTO-064B0S3)
-* [Cypress Semiconductor](http://www.cypress.com)
+* [Cypress Semiconductor, an Infineon Technologies Company](http://www.cypress.com)
 * [Cypress Semiconductor GitHub](https://github.com/cypresssemiconductorco)
 * [ModusToolbox](https://www.cypress.com/products/modustoolbox-software-environment)
 
