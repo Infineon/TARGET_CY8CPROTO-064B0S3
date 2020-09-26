@@ -2,7 +2,7 @@
 
 ## Overview
 
-CY8CPROTO-064B0S3 PSoC 64 SecureBoot Prototyping Kit is a low-cost Prototyping Kit based on PSoC 64 SecureBoot MCU to enable customers to prototype and design with the PSoC 64 SecureBoot device.
+CY8CPROTO-064B0S3 PSoC 64 Secure Boot Prototyping Kit is a low-cost Prototyping Kit based on PSoC 64 Secure Boot MCU to enable customers to prototype and design with the PSoC 64 Secure Boot device.
 
 ![](docs/html/board.png)
 
@@ -13,7 +13,7 @@ To use code from the BSP, simply include a reference to `cybsp.h`.
 ### Kit Features:
 
 * PSoC 64 Secure MCU
-* 128-Mb Serial NOR flash
+* 512-Mb Serial NOR flash
 * Full-speed USB device interface
 
 ### Kit Contents:
@@ -42,8 +42,6 @@ Defines:
 | FLL      | IMO       | 100.0 MHz        |
 | PLL      | IMO       | 48.0 MHz         |
 | CLK_HF0  | CLK_PATH0 | 100 MHz          |
-| CLK_HF2  | CLK_PATH0 | 50 MHz           |
-| CLK_HF3  | CLK_PATH1 | 48 MHz           |
 
 ### Power Configuration
 

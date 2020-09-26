@@ -1,5 +1,5 @@
 # CY8CPROTO-064B0S3 BSP Release Notes
-CY8CPROTO-064B0S3 PSoC 64 SecureBoot Prototyping Kit is a low-cost Prototyping Kit based on PSoC 64 SecureBoot MCU to enable customers to prototype and design with the PSoC 64 SecureBoot device.
+CY8CPROTO-064B0S3 PSoC 64 Secure Boot Prototyping Kit is a low-cost Prototyping Kit based on PSoC 64 Secure Boot MCU to enable customers to prototype and design with the PSoC 64 Secure Boot device.
 
 NOTE: BSPs are versioned by family. This means that version 1.2.0 of any BSP in a family (eg: PSoC 6) will have the same software maturity level. However, not all updates are necessarily applicable for each BSP in the family so not all version numbers will exist for each board. Additionally, new BSPs may not start at version 1.0.0. In the event of adding a common feature across all BSPs, the libraries are assigned the same version number. For example if BSP_A is at v1.3.0 and BSP_B is at v1.2.0, the event will trigger a version update to v1.4.0 for both BSP_A and BSP_B. This allows the common feature to be tracked in a consistent way.
 
@@ -15,6 +15,15 @@ The CY8CPROTO-064B0S3 library includes the following:
 * API documentation
 
 ### What Changed?
+#### v2.0.0
+* Updated design files and GeneratedSource with ModusToolbox 2.2 release
+* Migrated pin definitions into design.modus file
+* Updated clock frequencies to 144 MHz (fast) / 72 MHz (slow)
+* Updated MPNs on some boards to non-obsolete parts
+* Switched psoc6pdl dependency to new mtb-pdl
+* Switched psoc6hal dependency to new mtb-hal
+* Switched psoc6make dependency to new core-make & recipe-make-cat1a
+NOTE: This version requires ModusToolbox tools 2.2 or later. This version is not backwards compatible with 1.X versions. Additional manual steps must be taken to successfully update a design using a 1.x version of the BSP to this version.
 #### v1.3.0
 * Minor update for documentation & branding
 * Updated design files to use latest personality files
@@ -42,10 +51,12 @@ This version of the CY8CPROTO-064B0S3 BSP was validated for compatibility with t
 
 | Software and Tools                        | Version |
 | :---                                      | :----:  |
-| ModusToolbox Software Environment         | 2.0     |
-| GCC Compiler                              | 7.4     |
-| IAR Compiler                              | 8.32    |
+| ModusToolbox Software Environment         | 2.2     |
+| GCC Compiler                              | 9.2     |
+| IAR Compiler                              | 8.4     |
 | ARM Compiler                              | 6.11    |
+
+Minimum required ModusToolbox Software Environment: v2.2
 
 ### More information
 * [CY8CPROTO-064B0S3 BSP API Reference Manual][api]

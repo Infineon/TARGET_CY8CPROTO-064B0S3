@@ -4,11 +4,13 @@
 * Description:
 * Peripheral Hardware Block configuration
 * This file was automatically generated and should not be modified.
-* cfg-backend-cli: 1.2.0.1483
-* Device Support Library (libs/psoc6pdl): 1.6.0.4266
+* Tools Package 2.2.0.2801
+* latest-v2.X 2.0.0.6211
+* personalities 3.0.0.0
+* udd 3.0.0.562
 *
 ********************************************************************************
-* Copyright 2017-2019 Cypress Semiconductor Corporation
+* Copyright 2020 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,26 +28,3 @@
 
 #include "cycfg_peripherals.h"
 
-const cy_stc_smif_config_t smif_0_config =
-{
-	.mode = (uint32_t)CY_SMIF_NORMAL,
-	.deselectDelay = smif_0_DESELECT_DELAY,
-	.rxClockSel = (uint32_t)CY_SMIF_SEL_INV_INTERNAL_CLK,
-	.blockEvent = (uint32_t)CY_SMIF_BUS_ERROR,
-};
-#if defined (CY_USING_HAL)
-	const cyhal_resource_inst_t smif_0_obj =
-	{
-		.type = CYHAL_RSC_SMIF,
-		.block_num = 0U,
-		.channel_num = 0U,
-	};
-#endif //defined (CY_USING_HAL)
-
-
-void init_cycfg_peripherals(void)
-{
-#if defined (CY_USING_HAL)
-	cyhal_hwmgr_reserve(&smif_0_obj);
-#endif //defined (CY_USING_HAL)
-}
